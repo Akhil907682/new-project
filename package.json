@@ -1,0 +1,15 @@
+{
+  "name": "campusguard-root",
+  "version": "1.0.0",
+  "description": "Unified root for CampusGuard",
+  "scripts": {
+    "dev": "concurrently \"npm run server --prefix server\" \"npm run dev --prefix client\"",
+    "install-client": "npm install --prefix client",
+    "install-server": "npm install --prefix server",
+    "install-all": "npm install && npm run install-client && npm run install-server",
+    "build": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
