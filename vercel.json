@@ -18,6 +18,7 @@
       "source": "/api/(.*)",
       "destination": "server/index.js"
     },
+    { "handle": "filesystem" },
     {
       "source": "/(.*)",
       "destination": "client/index.html"
