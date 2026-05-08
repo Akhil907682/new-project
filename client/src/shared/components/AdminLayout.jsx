@@ -60,13 +60,13 @@ const AdminLayout = () => {
   const { user } = useSelector((state) => state.auth);
   const { notifications = [] } = useSelector((state) => state.notification || {});
   
-  const unreadInboxCount = notifications?.filter(n => 
+  const unreadInboxCount = Array.isArray(notifications) ? notifications.filter(n => 
     n.type === 'new_message' && !n.isRead
-  ).length || 0;
+  ).length : 0;
 
-  const unreadComplaintsCount = notifications?.filter(n => 
+  const unreadComplaintsCount = Array.isArray(notifications) ? notifications.filter(n => 
     n.type === 'new_complaint' && !n.isRead
-  ).length || 0;
+  ).length : 0;
 
   const onLogout = () => {
     dispatch(logout());

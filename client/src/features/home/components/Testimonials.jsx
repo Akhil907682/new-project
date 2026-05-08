@@ -22,11 +22,13 @@ const Testimonials = () => {
     return name;
   };
 
-  if (isLoading && publicFeedback.length === 0) {
+  const feedbacks = Array.isArray(publicFeedback) ? publicFeedback : [];
+
+  if (isLoading && feedbacks.length === 0) {
      return null;
   }
 
-  if (publicFeedback.length === 0) {
+  if (feedbacks.length === 0) {
     return null;
   }
 
@@ -78,7 +80,7 @@ const Testimonials = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {publicFeedback.slice(0, 3).map((item, index) => (
+          {feedbacks.slice(0, 3).map((item, index) => (
             <FeedbackCard key={item._id} item={item} index={index} getAnonymizedName={getAnonymizedName} />
           ))}
         </div>

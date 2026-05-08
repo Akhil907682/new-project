@@ -87,7 +87,7 @@ export const notificationSlice = createSlice({
       })
       .addCase(getNotifications.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.notifications = action.payload;
+        state.notifications = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(getNotifications.rejected, (state, action) => {
         state.isLoading = false;
@@ -95,17 +95,21 @@ export const notificationSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(markAsRead.fulfilled, (state, action) => {
-        state.notifications = state.notifications.map((n) =>
-          n._id === action.payload._id ? action.payload : n
-        );
+        if (Array.isArray(state.notifications)) {
+          state.notifications = state.notifications.map((n) =>
+            n._id === action.payload._id ? action.payload : n
+          );
+        }
       })
       .addCase(markAllReadByComplaint.fulfilled, (state, action) => {
         const complaintId = String(action.payload.complaintId);
-        state.notifications = state.notifications.map((n) =>
-          getNotificationComplaintId(n) === complaintId
-            ? { ...n, isRead: true }
-            : n
-        );
+        if (Array.isArray(state.notifications)) {
+          state.notifications = state.notifications.map((n) =>
+            getNotificationComplaintId(n) === complaintId
+              ? { ...n, isRead: true }
+              : n
+          );
+        }
       });
   },
 });

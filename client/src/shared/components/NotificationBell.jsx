@@ -12,13 +12,15 @@ const NotificationBell = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const filteredNotifications = (notifications || []).filter((n) => {
+  const safeNotifications = Array.isArray(notifications) ? notifications : [];
+
+  const filteredNotifications = safeNotifications.filter((n) => {
     if (user?.role === 'admin') {
       return n.type === 'new_complaint' || n.type === 'new_message';
     }
     return n.type === 'status_update' || n.type === 'new_message';
   });
-  const unreadCount = (filteredNotifications || []).filter((n) => !n.isRead).length;
+  const unreadCount = filteredNotifications.filter((n) => !n.isRead).length;
 
   useEffect(() => {
     if (user) {

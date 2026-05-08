@@ -362,11 +362,11 @@ export const complaintSlice = createSlice({
       })
       .addCase(getPublicFeedback.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.publicFeedback = action.payload.feedback;
+        state.publicFeedback = Array.isArray(action.payload?.feedback) ? action.payload.feedback : [];
         state.publicFeedbackPagination = {
-          total: action.payload.total,
-          page: action.payload.page,
-          pages: action.payload.pages,
+          total: action.payload?.total || 0,
+          page: action.payload?.page || 1,
+          pages: action.payload?.pages || 1,
         };
       })
       .addCase(getPublicFeedback.rejected, (state, action) => {

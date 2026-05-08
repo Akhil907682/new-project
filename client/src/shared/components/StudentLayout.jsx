@@ -60,9 +60,9 @@ const StudentLayout = () => {
   const { user } = useSelector((state) => state.auth);
   const { notifications = [] } = useSelector((state) => state.notification || {});
 
-  const unreadMessagesCount = notifications?.filter(n => 
+  const unreadMessagesCount = Array.isArray(notifications) ? notifications.filter(n => 
     n.type === 'new_message' && !n.isRead
-  ).length || 0;
+  ).length : 0;
 
   const onLogout = () => {
     dispatch(logout());
